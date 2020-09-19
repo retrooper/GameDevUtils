@@ -1,4 +1,5 @@
 #include <cmath>
+#include <string>
 template<typename T>
 class Vector3
 {
@@ -74,7 +75,7 @@ public:
 	* 
 	* @param Subtrahend vector.
 	*/
-	void subtract(Vector2<T> target)
+	void subtract(Vector3<T> target)
 	{
 		this->x -= target.x;
 		this->y -= target.y;
@@ -86,7 +87,7 @@ public:
 	* 
 	* @param Multiplier vector.
 	*/
-	void multiply(Vector2<T> target)
+	void multiply(Vector3<T> target)
 	{
 		this->x *= target.x;
 		this->y *= target.y;
@@ -97,7 +98,7 @@ public:
 	*
 	* @param Divisor vector.
 	*/
-	void divide(Vector2<T> target)
+	void divide(Vector3<T> target)
 	{
 		this->x /= target.x;
 		this->y /= target.y;
@@ -109,71 +110,75 @@ public:
 	/**
 	* '+' Operator overloaded
 	*/
-	Vector3<T> operator+(Vector2<T> target)
+	Vector3<T> operator+(Vector3<T> target)
 	{
-		return Vector2<T>(this->x + target.x, this->y + target.y);
+		return Vector3<T>(this->x + target.x, this->y + target.y, this->z + target.z);
 	}
 
 	/**
 	* '=' Operator overloaded
 	*/
-	Vector3<T> operator-(Vector2<T> target)
+	Vector3<T> operator-(Vector3<T> target)
 	{
-		return Vector2<T>(this->x - target.x, this->y - target.y);
+		return Vector3<T>(this->x - target.x, this->y - target.y, this->z - target.z);
 	}
 
 	/**
 	* '*' Operator overloaded
 	*/
-	Vector3<T> operator*(Vector2<T> target)
+	Vector3<T> operator*(Vector3<T> target)
 	{
-		return Vector2<T>(this->x * target.x, this->y * target.y);
+		return Vector3<T>(this->x * target.x, this->y * target.y, this->z * target.z);
 	}
 
 	/**
 	* '/' Operator overloaded
 	*/
-	Vector3<T> operator/(Vector2<T> target)
+	Vector3<T> operator/(Vector3<T> target)
 	{
-		return Vector2<T>(this->x / target.x, this->y / target.y);
+		return Vector3<T>(this->x / target.x, this->y / target.y, this->z / target.z);
 	}
 
 	/**
 	* '+=' Operator overloaded
 	*/
-	Vector3<T> operator+=(Vector2<T> target)
+	Vector3<T> operator+=(Vector3<T> target)
 	{
 		this->x += target.x;
 		this->y += target.y;
+		this->z += target.z;
 		return *this;
 	}
 
 	/**
 	* '-=' Operator overloaded
 	*/
-	Vector3<T> operator-=(Vector2<T> target)
+	Vector3<T> operator-=(Vector3<T> target)
 	{
 		this->x -= target.x;
 		this->y -= target.y;
+		this->z -= target.z;
 		return *this;
 	}
 
 	/**
 	* '*=' Operator overloaded
 	*/
-	Vector3<T> operator*=(Vector2<T> target)
+	Vector3<T> operator*=(Vector3<T> target)
 	{
 		this->x *= target.x;
 		this->y *= target.y;
+		this->z *= target.z;
 		return *this;
 	}
 	/**
 	* '/=' Operator overloaded
 	*/
-	Vector3<T> operator/=(Vector2<T> target)
+	Vector3<T> operator/=(Vector3<T> target)
 	{
 		this->x /= target.x;
 		this->y /= target.y;
+		this->z /= target.z;
 		return *this;
 	}
 
@@ -251,10 +256,10 @@ public:
 	*/
 	void normalize()
 	{
-		T magnitude = get_length();
-		this->x /= magnitude;
-		this->y /= magnitude;
-		this->z /= magnitude;
+		T mag = magnitude();
+		this->x /= mag;
+		this->y /= mag;
+		this->z /= mag;
 	}
 
 	/**
@@ -276,9 +281,14 @@ public:
 	*/
 	T angle(Vector3 target) const 
 	{
-		T value = dot(target) / get_length() * target.get_length();
+		T value = dot(target) / magnitude() * target.magnitude();
 		if (value < -1) value = -1;
 		if (value > 1) value = 1;
 		return(T)(acos(value));
+	}
+
+	std::string to_string() {
+		std::string text = "X: " + std::to_string(x) + ", Y: " + std::to_string(y) + ", Z: " + std::to_string(z);
+		return text;
 	}
 };
