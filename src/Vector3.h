@@ -287,8 +287,12 @@ public:
 		return(T)(acos(value));
 	}
 
+	/**
+	* A nice string representation of this vector.
+	* 
+	* @return A string representation of the vector values.
+	*/
 	std::string to_string() {
-		std::string text = "X: " + std::to_string(x) + ", Y: " + std::to_string(y) + ", Z: " + std::to_string(z);
-		return text;
+		return  "X: " + std::to_string(x) + ", Y: " + std::to_string(y) + ", Z: " + std::to_string(z);
 	}
 };
